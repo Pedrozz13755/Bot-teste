@@ -2,6 +2,7 @@
 const { 
 default: makeWASocket, downloadContentFromMessage,  emitGroupParticipantsUpdate,  emitGroupUpdate,  makeInMemoryStore,  prepareWAMessageMedia, MediaType,  WAMessageStatus, AuthenticationState, GroupMetadata, initInMemoryKeyStore, MiscMessageGenerationOptions,  useMultiFileAuthState, BufferJSON,  WAMessageProto,  MessageOptions, PHONENUMBER_MCC,	 WAFlag,  WANode,	 WAMetric,	 ChatModification,  MessageTypeProto,  WALocationMessage, ReconnectMode,  WAContextInfo,  proto,	 WAGroupMetadata,  ProxyAgent,	 waChatKey,  MimetypeMap,  MediaPathMap,  WAContactMessage,  WAContactsArrayMessage,  WAGroupInviteMessage,  WATextMessage,  WAMessageContent,  WAMessage,  BaileysError,  WA_MESSAGE_STATUS_TYPE,  MediaConnInfo,   generateWAMessageContent, URL_REGEX,  Contact, WAUrlInfo,  WA_DEFAULT_EPHEMERAL,  WAMediaUpload,  mentionedJid,  processTime,	 Browser, makeCacheableSignalKeyStore ,  MessageType,  Presence,  WA_MESSAGE_STUB_TYPES,  Mimetype,  relayWAMessage,	 Browsers,  GroupSettingChange,  delay,  DisconnectReason,  WASocket,  getStream,  WAProto,  isBaileys,  AnyMessageContent,  generateWAMessageFromContent, fetchLatestBaileysVersion,  processMessage,  processingMutex
 } = require('@whiskeysockets/baileys');
+const express = require("express");
 let pino = require('pino')
 const fs = require('fs')
 const axios = require('axios');
@@ -17,13 +18,15 @@ const question = (text) => new Promise((resolve) => rl.question(text, resolve))
 const NodeCache = require("node-cache")
 
 
-
-
+const PORT = `8080`;
+const app = express();
+var donoName = 'pedrozz moddz'
+var botName = 'teste bot'
        
 async function ligarbot() {
 const store = makeInMemoryStore({ logger: pino().child({ level: 'debug', stream: 'store' }) })
 
-const { state, saveCreds } = await useMultiFileAuthState('./sessao')
+const { state, saveCreds } = await useMultiFileAuthState('./dono/bot-qr')
 const { version, isLatest } = await fetchLatestBaileysVersion()
 const msgRetryCounterCache = new NodeCache() // para mensagem de nova tentativa, "mensagem de espera"
 const client = makeWASocket({
@@ -119,7 +122,7 @@ info.message.extendedTextMessage.text : (type == 'buttonsResponseMessage') ?
 info.message.buttonsResponseMessage.selectedButtonId : (info.message.listResponseMessage && info.message.listResponseMessage.singleSelectReply.selectedRowId.startsWith(prefix) && info.message.listResponseMessage.singleSelectReply.selectedRowId) ? info.message.listResponseMessage.singleSelectReply.selectedRowId : (type == 'templateButtonReplyMessage') ?
 info.message.templateButtonReplyMessage.selectedId : (type === 'messageContextInfo') ? (info.message.buttonsResponseMessage?.selectedButtonId || info.message.listResponseMessage?.singleSelectReply.selectedRowId || info.text) : ''
 
-prefix = '!'
+prefix = '£'
 prefixo = prefix
 const isCmd = body.startsWith(prefix)
 const comando = isCmd ? body.slice(1).trim().split(/ +/).shift().toLocaleLowerCase() : null
@@ -152,6 +155,18 @@ break
 
 
 //cases ficam acima ðŸ‘†
+default:
+if(isCmd) {
+client.sendMessage(from, {text: `
+╭━─≪𝐂𝐎𝐌𝐀𝐍𝐃𝐎 𝐈𝐍𝐄𝐗𝐈𝐒𝐓𝐄𝐍𝐓𝐄≫─━╮
+│╭─────────────╮
+││➥[ 👤 ] *OLÁ HUMANO:*
+││➥[ 🙄 ] *ACHO QUE TE FALTA LER O MENU*
+││➥[ 📄 ] *COMANDO:* *_${comando}_*
+│╰─────────────╯
+╰━──≪  ${donoName}  ≫─━━╯
+`})
+}
 }
 // IF ABAIXO ðŸ‘‡
 
@@ -176,6 +191,10 @@ if(update.isNewLogin) {
 console.log(`conectado com sucesso`)
 }})}
 ligarbot()
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
+});
 
 fs.watchFile('./index.js', (curr, prev) => {
 if (curr.mtime.getTime() !== prev.mtime.getTime()) {
