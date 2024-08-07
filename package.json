@@ -1,0 +1,41 @@
+{
+  "name": "DarkStars",
+  "version": "2.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "DarkStars",
+  "license": "ISC",
+  "dependencies": {
+    "@adiwajshing/keyed-db": "^0.2.4",
+    "@hapi/boom": "^9.1.4",
+    "@whiskeysockets/baileys": "^6.6.0",
+    "async": "^3.2.3",
+    "qrcode-terminal": "^0.12.0",
+    "pino": "^7.8.0",
+    "performance-now": "^2.1.0",
+    "awesome-phonenumber": "^5.9.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "youtube-yts": "^2.0.0",
+    "youtubedl-core": "^4.11.5",
+    "yt-search": "^2.10.4",
+    "ytdl-core": "^4.11.5",
+    "jsdom": "^16.4.0",
+    "@bochilteam/scraper": "^4.2.4",
+    "node-fetch": "^2.6.1",
+    "crypto": "^1.0.1",
+    "crypto-digest-sync": "^1.0.0",
+    "fs-extra": "^10.0.0",
+    "axios": "^0.21.1",
+    "moment-timezone": "^0.5.43",
+    "node-cache": "^5.1.2",
+    "human-readable": "^0.2.1",
+    "jimp": "^0.22.12",
+    "linkifyjs": "^4.1.3",
+    "util": "^0.12.5",
+    "stream": "^0.0.2",
+    "chalk": "^5.0.0"
+  }
+}
